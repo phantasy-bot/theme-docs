@@ -1,0 +1,85 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<article class="doc-page">
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <ol class="breadcrumbs-list">
+      <li class="breadcrumb-item">
+        <a href="/">Home</a>
+      </li>
+      {% for crumb in breadcrumbs %}
+      <li class="breadcrumb-item">
+        <span class="breadcrumb-separator">/</span>
+        {% if crumb.url %}
+        <a href="{{ crumb.url }}">{{ crumb.title }}</a>
+        {% else %}
+        <span class="breadcrumb-current">{{ crumb.title }}</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </nav>
+  
+  <div class="doc-layout">
+    <div class="doc-content">
+      <header class="doc-header">
+        <h1 class="doc-title">{{ title }}</h1>
+        {% if description %}
+        <p class="doc-description">{{ description }}</p>
+        {% endif %}
+      </header>
+      
+      <div class="doc-body prose">
+        {{ content | markdown }}
+      </div>
+      
+      <nav class="doc-nav" aria-label="Document navigation">
+        {% if prevPage %}
+        <a href="{{ prevPage.url }}" class="doc-nav-link prev">
+          <span class="doc-nav-label">← Previous</span>
+          <span class="doc-nav-title">{{ prevPage.title }}</span>
+        </a>
+        {% endif %}
+        
+        {% if nextPage %}
+        <a href="{{ nextPage.url }}" class="doc-nav-link next">
+          <span class="doc-nav-label">Next →</span>
+          <span class="doc-nav-title">{{ nextPage.title }}</span>
+        </a>
+        {% endif %}
+      </nav>
+    </div>
+    
+    <aside class="doc-toc">
+      <div class="toc-wrapper">
+        <h4 class="toc-title">On this page</h4>
+        <nav class="toc-nav">
+          <ul class="toc-list">
+            {% for heading in toc %}
+            <li class="toc-item toc-level-{{ heading.level }}">
+              <a href="#{{ heading.id }}" class="toc-link">{{ heading.text }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+    </aside>
+  </div>
+</article>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
+      if (tocLink) {
+        tocLink.classList.toggle('active', entry.isIntersecting);
+      }
+    });
+  }, { rootMargin: '-80px 0px -80px 0px' });
+  
+  document.querySelectorAll('.doc-body h2, .doc-body h3').forEach(heading => {
+    observer.observe(heading);
+  });
+</script>
+{% endblock %}
