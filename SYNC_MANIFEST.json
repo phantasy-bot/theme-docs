@@ -2,5 +2,5 @@
   "slug": "theme-docs",
   "kind": "theme",
   "repoUrl": "https://github.com/phantasy-bot/theme-docs",
-  "phase": "scaffold-only"
+  "phase": "source-extracted"
 }
