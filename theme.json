@@ -1,37 +1,26 @@
 {
   "name": "docs",
-  "displayName": "Documentation",
-  "description": "Technical documentation with sidebar navigation",
-  "version": "1.0.0",
-  "pages": [
-    {
-      "name": "index",
-      "path": "/",
-      "file": "index.html"
-    },
-    {
-      "name": "page",
-      "path": "/docs/:slug",
-      "file": "page.html"
-    }
-  ],
-  "configSchema": {
-    "accentColor": {
-      "type": "string",
-      "default": "#3b82f6",
-      "description": "Primary accent color for links and highlights"
-    },
-    "showSearch": {
-      "type": "boolean",
-      "default": true,
-      "description": "Show search input in header"
-    },
-    "sidebarPosition": {
-      "type": "string",
-      "enum": ["left", "right"],
-      "default": "left",
-      "description": "Position of the sidebar navigation"
+  "displayName": "Docs",
+  "version": "2.0.0",
+  "description": "Documentation-driven theme for companion manuals, API references, and structured knowledge publishing.",
+  "author": "Phantasy Labs",
+  "workspace": "site",
+  "extensionKind": "presentation",
+  "pages": {
+    "index": {
+      "template": "pages/index.html",
+      "route": "/"
     }
   },
-  "assets": ["assets/style.css"]
+  "layouts": {
+    "base": "layouts/base.html"
+  },
+  "assets": "assets",
+  "configSchema": {
+    "accentColor": {
+      "type": "color",
+      "default": "#2563eb",
+      "label": "Accent Color"
+    }
+  }
 }

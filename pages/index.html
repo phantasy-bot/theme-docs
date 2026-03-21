@@ -1,99 +1,45 @@
-{% extends "layouts/base.html" %}
+<section class="hero">
+  <p class="heroKicker">Companion site theme</p>
+  <h1>{{site.title}}</h1>
+  <p class="heroLead">{{site.description}}</p>
+  <div class="heroActions">
+    {{#each agent.socialLinks}}
+      <a href="{{url}}" class="heroButton" target="_blank" rel="noopener">{{platform}}</a>
+    {{/each}}
+  </div>
+</section>
 
-{% block content %}
-<div class="docs-home">
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">{{ title }}</h1>
-      <p class="hero-subtitle">{{ description }}</p>
-      
-      {% if config.showSearch %}
-      <div class="hero-search">
-        <input type="search" class="hero-search-input" placeholder="Search the docs...">
-      </div>
-      {% endif %}
-      
-      <div class="hero-actions">
-        <a href="/docs/getting-started" class="btn btn-primary">Get Started</a>
-        <a href="/docs/introduction" class="btn btn-secondary">Read the Docs</a>
-      </div>
+<section class="grid">
+  <article class="panel">
+    <p class="panelLabel">About</p>
+    <h2>{{agent.name}}</h2>
+    <p>{{agent.bio}}</p>
+  </article>
+  <article class="panel">
+    <p class="panelLabel">Personality</p>
+    <h2>How the companion shows up</h2>
+    <p>{{agent.personality}}</p>
+  </article>
+</section>
+
+{{#if page.posts}}
+<section class="panel feedPanel">
+  <div class="feedHeader">
+    <div>
+      <p class="panelLabel">Content</p>
+      <h2>Latest posts</h2>
     </div>
-  </section>
-  
-  <section class="getting-started">
-    <h2 class="section-title">Getting Started</h2>
-    
-    <div class="cards-grid">
-      <a href="/docs/installation" class="card">
-        <div class="card-icon">📦</div>
-        <h3 class="card-title">Installation</h3>
-        <p class="card-description">Learn how to install and set up the project in your environment.</p>
-      </a>
-      
-      <a href="/docs/quick-start" class="card">
-        <div class="card-icon">🚀</div>
-        <h3 class="card-title">Quick Start</h3>
-        <p class="card-description">Get up and running quickly with our step-by-step guide.</p>
-      </a>
-      
-      <a href="/docs/configuration" class="card">
-        <div class="card-icon">⚙️</div>
-        <h3 class="card-title">Configuration</h3>
-        <p class="card-description">Customize the project to fit your specific needs.</p>
-      </a>
-      
-      <a href="/docs/examples" class="card">
-        <div class="card-icon">💡</div>
-        <h3 class="card-title">Examples</h3>
-        <p class="card-description">Explore practical examples and use cases.</p>
-      </a>
-    </div>
-  </section>
-  
-  <section class="quick-links">
-    <h2 class="section-title">Quick Links</h2>
-    
-    <div class="links-grid">
-      <div class="links-column">
-        <h3 class="links-heading">Basics</h3>
-        <ul class="links-list">
-          <li><a href="/docs/introduction">Introduction</a></li>
-          <li><a href="/docs/getting-started">Getting Started</a></li>
-          <li><a href="/docs/installation">Installation</a></li>
-          <li><a href="/docs/configuration">Configuration</a></li>
-        </ul>
-      </div>
-      
-      <div class="links-column">
-        <h3 class="links-heading">Guides</h3>
-        <ul class="links-list">
-          <li><a href="/docs/architecture">Architecture</a></li>
-          <li><a href="/docs/plugins">Plugins</a></li>
-          <li><a href="/docs/providers">Providers</a></li>
-          <li><a href="/docs/deployment">Deployment</a></li>
-        </ul>
-      </div>
-      
-      <div class="links-column">
-        <h3 class="links-heading">Reference</h3>
-        <ul class="links-list">
-          <li><a href="/docs/api">API Reference</a></li>
-          <li><a href="/docs/cli">CLI Commands</a></li>
-          <li><a href="/docs/config-schema">Config Schema</a></li>
-          <li><a href="/docs/changelog">Changelog</a></li>
-        </ul>
-      </div>
-      
-      <div class="links-column">
-        <h3 class="links-heading">Community</h3>
-        <ul class="links-list">
-          <li><a href="{{ githubUrl }}">GitHub</a></li>
-          <li><a href="{{ discordUrl }}">Discord</a></li>
-          <li><a href="/docs/contributing">Contributing</a></li>
-          <li><a href="/docs/faq">FAQ</a></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-</div>
-{% endblock %}
+  </div>
+  <div class="feedList">
+    {{#each page.posts}}
+      <article class="feedItem">
+        <div>
+          <h3><a href="/blog/{{slug}}">{{title}}</a></h3>
+          {{#if excerpt}}<p>{{excerpt}}</p>{{/if}}
+        </div>
+        <span>{{formatDate publishedAt}}</span>
+      </article>
+    {{/each}}
+  </div>
+</section>
+{{/if}}
